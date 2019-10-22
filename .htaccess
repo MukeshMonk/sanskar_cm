@@ -1,0 +1,28 @@
+RewriteEngine On
+
+
+
+RewriteRule ^(.*)/(.*)/(.*)/(.*)/(.*)\/$ index.php?view=$1&action=$2&record_id=$3&subaction=$4&item_id=$5 [L]
+
+
+
+
+
+RewriteRule ^(.*)/(.*)/(.*)/(.*)\/$ index.php?view=$1&action=$2&subaction=$3&record_id=$4 [L]
+
+
+
+
+
+RewriteRule ^(.*)/(.*)/(.*)\/$ index.php?view=$1&action=$2&record_id=$3 [L]
+
+
+
+RewriteRule ^(.*)/(.*)\/$ index.php?view=$1&action=$2 [L]
+
+
+
+RewriteRule ^(.*)\/$ index.php?view=$1 [QSA,L]
+
+
+
