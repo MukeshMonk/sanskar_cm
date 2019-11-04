@@ -12,6 +12,33 @@ input[type=text]:active {
 input[type=text]:hover {
     border: 1px solid #00a8ff;
 }
+/* #subject {
+    display: none;
+} */
+#subject .col-md-1 {
+    text-align: center;
+    position: relative;
+    top: 10px;
+}
+div#subject {
+    border-top: 1px solid #e5e5e5;
+}
+
+div#subject h3 {
+    margin-top: 15px;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+subject ul li div p {}
+
+p {
+    font-size: 14px;
+}
+
+.sub_name {
+    font-size: 14px;
+}
 </style>
 <div class="page-content">
 
@@ -184,7 +211,7 @@ input[type=text]:hover {
 
       <div class="modal-header">
 
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">ï¿½</button>
 
         <h4 class="modal-title"><span>Add</span> <strong>Exam Schedule</strong> </h4>
 
@@ -213,7 +240,7 @@ input[type=text]:hover {
 
 		          <label  class="control-label">Class<span class="mandatory">*</span></label>
 
-		           <? $this->app->htmlBuilder->buildTag("select", array("class"=>"form-control required change_cource", "values"=>$this->app->branch_dd,"title"=>"Class Required","data-term"=>""), "branch");?>
+		           <? $this->app->htmlBuilder->buildTag("select", array("class"=>"form-control required change_cource change_class", "values"=>$this->app->branch_dd,"title"=>"Class Required","data-term"=>""), "branch");?>
 
 				</div>
 
@@ -305,45 +332,13 @@ input[type=text]:hover {
 
 	        </div>
 
-          <?php /*?><div class="col-md-4">
-
-            <div class="form-group">
-
-              <label for="field-1" class="control-label">Exam Date<span class="mandatory">*</span></label>
-
-              <div class='input-group date'>
-
-                <input id="a_date" name="a_date" type="text" value="" class="form-control indatepicker">
-
-                <span class="input-group-addon"> <i class="font-icon font-icon-calend"></i> </span> </div>
-
-            </div>
-
-          </div><?php */?>
-
-          <?php /*?><div class="col-md-4">
-
-            <div class="form-group">
-
-              <label for="field-1" class="control-label">Marks Submission Date<span class="mandatory">*</span></label>
-
-              <div class='input-group date'>
-
-                <input id="m_s_date" name="m_s_date"type="text" value="" class="form-control indatepicker">
-
-                <span class="input-group-addon"> <i class="font-icon font-icon-calend"></i> </span> </div>
-
-            </div>
-
-          </div><?php */?>
+          <?php ?>
+         
 
 
         </div>
 
-
-        <div class="row">
-
-        </div>
+        <div id="subject"></div>
 
       </div>
 
@@ -367,7 +362,7 @@ input[type=text]:hover {
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">ï¿½</button>
         <h4 class="modal-title"></h4>
       </div>
       <div class="modal-body">
@@ -384,14 +379,14 @@ input[type=text]:hover {
 
         
 
-        <div class="row">
+    <!-- <div class="row">
 
           <div class="col-md-12">
 
             <div class="form-group">
 
               <label class="control-label">Subject Name<span class="mandatory">*</span></label>
-			<div class="sub-div"></div>
+			        <div class="sub-div"></div>
 			  <? // $this->app->htmlBuilder->buildTag("select", array("class"=>"form-control required", "values"=>$this->app->sub_dd,"title"=>"Class Required"), "sub");?>
 
             </div>
@@ -407,7 +402,7 @@ input[type=text]:hover {
             <div class="form-group">
 
               <label class="control-label">Exam Date<span class="mandatory">*</span></label>
-				<div class="input-group date">
+				        <div class="input-group date">
 
                 <input id="exam_date" name="exam_date"type="text" value="" class="form-control indatepicker">
 
@@ -441,7 +436,7 @@ input[type=text]:hover {
       <div class="modal-footer">
         <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
       </div>
-    </div>
+    </div> -->
   </div>
 </div>
 

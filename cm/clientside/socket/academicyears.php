@@ -9,7 +9,6 @@
 	$sort_field=$app->getPostVar('sort_field');
 	$sort_field_value=$app->getPostVar('sort_field_value');
 	
-	
 	if($sort_field!="" && $sort_field_value!="")
 	{
 		$ord_cond=" order by ". $sort_field." ".$sort_field_value;

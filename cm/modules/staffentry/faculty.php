@@ -1,3 +1,27 @@
+<style>
+.SumoSelect{
+  width: 270px !important;
+}
+.SumoSelect>.CaptionCont {
+    border: 1px solid #d8e2e7;
+    cursor:pointer;
+}
+select#sel_subject,#sel_cls_inc,#department {
+    display: none !important;
+}
+#con-close-modal .SumoSelect>.CaptionCont {
+    width: 100%;
+    margin-bottom: 4px;
+}
+.SumoSelect>.CaptionCont {
+    border: 1px solid #d8e2e7;
+    -webkit-border-radius: .25rem;
+    border-radius: .25rem;
+    font-size: 1rem;
+    color: #343434;
+}
+
+</style>
 <div class="page-content">
 
   <div class="container-fluid mt50 dizzilist-block">
@@ -193,18 +217,22 @@
 		           <? $this->app->htmlBuilder->buildTag("select", array("class"=>"select2 required", "values"=>$this->app->designations_dd,"title"=>"Please Select Designation"), "designation");?>
 
 				</div>
-          </div>          
-	<div class="col-md-6">
-
+          </div> 
+          <? /*$this->app->htmlBuilder->buildTag("input", array("type"=>"hidden", "value"=>"","id"=>"sel_depart_sec"));*/?>
+            <? $this->app->htmlBuilder->buildTag("input", array("type"=>"hidden", "value"=>"","id"=>"sel_depart_1"));?>  
+              
+	<div class="col-md-6 ">
+          
 		        <div class="form-group">
 
 		          <label  class="control-label">Department<span class="mandatory">*</span></label>
-
-		           <? $this->app->htmlBuilder->buildTag("select", array("class"=>"select2", "values"=>$this->app->branch_dd), "department");?>
+              <? /*$this->app->htmlBuilder->buildTag("select", array("class"=>"select2 required", "values"=>$this->app->branch_dd,"title"=>"Please Select Class","multiple"=>"multiple","name"=>"depart_section[]"),"department");*/?>
+		           <?  $this->app->htmlBuilder->buildTag("select", array("class"=>"", "values"=>$this->app->branch_dd,"multiple"=>"multiple","name"=>"depart_sel[]","id"=>"department"));?>
 
 				</div>
 
 	        </div>
+          
             <? $this->app->htmlBuilder->buildTag("input", array("type"=>"hidden", "value"=>"","id"=>"sel_cls_inchrg"));?>
             <? $this->app->htmlBuilder->buildTag("input", array("type"=>"hidden", "value"=>"","id"=>"sel_sub_1"));?>
           <div class="col-md-6">
@@ -212,10 +240,11 @@
 
 		          <label  class="control-label">Class Incharge<span class="mandatory">*</span></label>
 
-		           <? $this->app->htmlBuilder->buildTag("select", array("class"=>"select2 required", "values"=>$this->app->class_dd,"title"=>"Please Select Class","multiple"=>"multiple","id"=>"sel_cls_inc","name"=>"cls_inchrg[]"));?>
+		           <? $this->app->htmlBuilder->buildTag("select", array("class"=>"sumo-select required", "values"=>$this->app->class_dd,"title"=>"Please Select Class","multiple"=>"multiple","id"=>"sel_cls_inc","name"=>"cls_inchrg[]"));?>
 
 				</div>
           </div>
+
 		
           <div class="col-md-6">
 
@@ -223,7 +252,7 @@
 
               <label for="field-1" class="control-label">Subject<span class="mandatory">*</span></label>
 				
-                <? $this->app->htmlBuilder->buildTag("select", array("class"=>"select2 ", "values"=>$this->app->sub_dd,"multiple"=>"multiple","id"=>"sel_subject","name"=>"subject2[]"));?>
+                <? $this->app->htmlBuilder->buildTag("select", array("class"=>"sumo-select ", "values"=>$this->app->sub_dd,"multiple"=>"multiple","id"=>"sel_subject","name"=>"subject2[]"));?>
 
               <!--<input type="text" class="form-control required number" id="division" name="division" title="Division Required" placeholder="Division">-->
 

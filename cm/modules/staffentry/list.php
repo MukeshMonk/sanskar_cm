@@ -398,7 +398,7 @@
 
 		          <label  class="control-label">Department<span class="mandatory">*</span></label>
 
-		           <? $this->app->htmlBuilder->buildTag("select", array("class"=>"select2", "values"=>$this->app->branch_dd), "department");?>
+		           <? $this->app->htmlBuilder->buildTag("select", array("class"=>"select2", "values"=>$this->app->branch_dd,"id"=>"department" ,"name"=>"depart_sel[]"));?>
 
 				</div>
 

@@ -28,6 +28,16 @@ label.staff_image,.staff_sign {
 .txt_center{
   padding-left: 31px;
 }
+.SumoSelect>.CaptionCont {
+    border: 1px solid #d8e2e7;
+    -webkit-border-radius: .25rem;
+    border-radius: .25rem;
+    font-size: 1rem;
+    color: #343434;
+}
+.SumoSelect.sumo_depart_sel {
+    width: 100%;
+}
 </style>
 <div class="page-content">
 <div class="container-fluid mt50 dizzilist-block">
@@ -356,10 +366,14 @@ label.staff_image,.staff_sign {
                 <? $this->app->htmlBuilder->buildTag("select", array("class"=>"select2 required", "values"=>$this->app->designations_dd,"title"=>"Please Select Designation","tabindex"=>"13"), "designation");?>
               </div>
             </div>
+            <?php 
+            $selected_department=explode(',',$this->app->rsstudents['department']);
+            ?>
             <div class="col-md-4">
                 <div class="form-group">
                   <label  class="control-label">Department</label>
-                  <? $this->app->htmlBuilder->buildTag("select", array("class"=>"select2", "values"=>$this->app->branch_dd,"tabindex"=>"15"), "department");?>
+                  <?  $this->app->htmlBuilder->buildTag("select", array("class"=>"", "values"=>$this->app->branch_dd,"multiple"=>"multiple","tabindex"=>"15","name"=>"depart_sel[]","id"=>"department","selected"=>$selected_department));?>
+                  <? /*$this->app->htmlBuilder->buildTag("select", array("class"=>"select2", "values"=>$this->app->branch_dd,"tabindex"=>"15"), "department");*/?>
                 </div>
             </div>
             <div class="col-md-4">

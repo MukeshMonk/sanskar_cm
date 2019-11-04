@@ -60,6 +60,8 @@
 		$exam_date=$s["exam_date"];
 
 		$m_sub_date=$s['m_sub_date'];
+		$ex_id=$s['exam_id'];
+		$ex_id_enc=$app->cmx->encrypt($ex_id,ency_key);	
 
 		
 
@@ -69,11 +71,10 @@
 
 		
 
-		$edit_btn='<a href="javascript:void(0);" onclick="javascript:edit_exam_sub(\''.$secid_enc.'\')" class="btn btn-xs btn-info"><i class="fa fa-edit"></i></a>';
+		$edit_btn='<a href="javascript:void(0);" onclick="javascript:edit_exam_sch(\''.$ex_id_enc.'\')" class="btn btn-xs btn-info"><i class="fa fa-edit"></i></a>';
 
-		$del_btn='<a href="javascript:void(0);" onclick="javascript:del_exam_sub(\''.$secid_enc.'\')" class="btn btn-xs btn-danger"><i class="fa fa-times"></i></a>';
+	//	$del_btn='<a href="javascript:void(0);" onclick="javascript:edit_exam_sch(\''.$ex_id_enc.'\')" class="btn btn-xs btn-danger"><i class="fa fa-times"></i></a>';
 
-		
 
 		
 

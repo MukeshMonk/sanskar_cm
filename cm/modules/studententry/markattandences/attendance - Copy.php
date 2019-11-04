@@ -184,8 +184,8 @@
 				    </td>
 					<td><input type="text" class="form-control" name="remarks1[]"  /></td>
 				</tr>	
-				<? } ?>
-				<? } ?>
+				<?php } ?>
+				<?php } ?>
             </tbody>
           </table>
           </div>

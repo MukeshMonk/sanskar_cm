@@ -88,8 +88,8 @@
 		}
 		$add_btn=CMX_ROOT.'/studententry/markattandences/attendance/'.$id_enc.'/';
 		$enterattendance = "<a href='".$add_btn."'>Enter Attendance</a>";
-		$daywisereport = "<a href=''>Download Report</a>";
-		$monthwisereport = "<a href=''>Month Wise Report</a>";
+		$daywisereport = "<a href='javascript:void(0);' class='call_export_daily' data-id='".$id_enc."'>Download Report</a>";
+		$monthwisereport = "<a href='javascript:void(0);' class='call_export' data-id='".$id_enc."'>Month Wise Report</a>";
 		
 		$last_updated=$row['last_updated'];
 		$lastupdated=$last_updated==0?date('d-m-Y',$row['added_on']):date('d-m-Y',$row['last_updated']);
@@ -107,7 +107,7 @@
                                         </ul>
                                       </div>';
 		$html.="<tr>";
-$html.=" <td><label class=\"custom-checkbox-item\">";
+		$html.=" <td><label class=\"custom-checkbox-item\">";
         $html.=" <input class=\"custom-checkbox bulk-checkbox delAll\" name=\"del[]\" type=\"checkbox\" data-stat=\"".$stat."\" name=\"inv_select\" value=\"".$id_enc."\">";
         $html.="<span class=\"custom-checkbox-mark\"></span></label></td>";
 		$html.="<td>{$sr}</td>";

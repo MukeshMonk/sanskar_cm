@@ -14,13 +14,14 @@
 	$a_date=$app->getPostVar("a_date");
 	$m_s_date=$app->getPostVar("m_s_date");
 	$record_id=$app->getPostVar("record_id");
+	$exam_sub = $app->getPostVar("sub_exam");
+	//echo '<pre>'.print_r($app->getPostVars(),true).'</pre>'; exit;
 	
 	  if($a_year!= "")
 	  {
 		if($record_id=="")
 		{
 			$update_field=array();
-			
 			$update_field['acd_year_id'] = $a_year;
 			$update_field['cource_id'] =$branch;
 			$update_field['sem_id'] =$sem;
@@ -36,6 +37,27 @@
 			$obj_model_log = $app->load_model("exam_schedule");
 			$obj_model_log->map_fields($update_field);
 			$ins=$obj_model_log->execute("INSERT");
+			if($ins>0){
+				 if(count($exam_sub)>0){
+					 foreach($exam_sub as $ex_sub){
+						 if($ex_sub['sub'] !=''){
+							$update_field=array();
+							$update_field['exam_id'] = $ins;
+							$update_field['sub_id'] = $ex_sub['sub'];
+							$update_field['exam_date'] = $ex_sub['exam_date'];
+							$update_field['m_sub_date'] = $ex_sub['ms_date'];		
+							$update_field['added_on'] = time();
+							$update_field['added_by'] = $_SESSION['StaffID'];			
+							$obj_model_log = $app->load_model("cm_exam_subjects");
+							$obj_model_log->map_fields($update_field);
+							$obj_model_log->execute("INSERT");
+						 }
+						
+					 }
+				 }
+				
+			}
+
 			
 			$msg="Admission Enquiries Added Successfully.";
 		}
@@ -58,6 +80,52 @@
 			
 			$obj_model_log->map_fields($update_field);
 			$ins=$obj_model_log->execute("UPDATE");
+
+			if($record_id>0){
+				if(count($exam_sub)>0){
+					foreach($exam_sub as $ex_sub){
+
+						if($ex_sub['es_id']!=''){
+							$update_field=array();
+							
+							$update_field['last_updated'] = time();
+							$update_field['added_by'] = $_SESSION['StaffID'];
+							if($ex_sub['act_sub_id']!="" && $ex_sub['sub']==""){
+								$update_field['status'] =2;
+							}
+							else{
+								$update_field['exam_date'] = $ex_sub['exam_date'];
+								$update_field['m_sub_date'] = $ex_sub['ms_date'];
+								$update_field['status'] =1;
+	
+							}
+							$obj_model_log = $app->load_model("cm_exam_subjects",$ex_sub['es_id']);
+							$obj_model_log->map_fields($update_field);
+							$obj_model_log->execute("UPDATE");   
+
+						   } else{
+							if($ex_sub['sub'] !=''){
+								$update_field=array();
+								$update_field['exam_id'] = $record_id;
+								$update_field['sub_id'] = $ex_sub['sub'];
+								$update_field['exam_date'] = $ex_sub['exam_date'];
+								$update_field['m_sub_date'] = $ex_sub['ms_date'];		
+								$update_field['added_on'] = time();
+								$update_field['added_by'] = $_SESSION['StaffID'];			
+								$obj_model_log = $app->load_model("cm_exam_subjects");
+								$obj_model_log->map_fields($update_field);
+								$obj_model_log->execute("INSERT");
+							}
+						   }	
+
+
+					   
+					}
+				}
+			   
+		   }
+
+
 			
 			$msg="Admission Enquiries Updated Successfully.";
 			

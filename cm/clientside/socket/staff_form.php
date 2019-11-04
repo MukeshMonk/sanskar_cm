@@ -16,6 +16,7 @@
 	$password_faculty=$app->cmx->alpha_encrypt($pass_faty,ency_key);
 	//echo"HI".$password_faculty; exit;
 	
+	$depart_sel=$app->getPostVar("depart_sel");	
 		//print_r($app->getPostVars()); exit;
 	  if($name!= NULL)
 	  {
@@ -112,7 +113,12 @@
 				$password_faculty='4EPX_iz5l292sS0jJU16zBswA8C3qdnG8znGGjYQdcQ';
 			}
 			
-
+			if(!empty($depart_sel))
+			{
+				$update_field['department'] = implode(",",$depart_sel);
+				//echo"if impload department ". $update_field['department']; exit;
+			}
+			
 				//echo "sanskar@123"; exit;
 				$ins_fac2= $obj_model_log->execute("INSERT",false,"INSERT INTO cm_users (username,pass,role_id,firstname,lastname,email,phone,status,added,added_by) VALUES ('$login_id','$password_faculty','3','$name','$last_name','$email','$m_no','Active','".time()."','".$_SESSION['StaffID']."')");
 				$update_field['login_user_id'] =$ins_fac2;
@@ -133,6 +139,12 @@
 			{
 				$update_field['subject'] = implode(",",$subject);
 			}
+			if(!empty($depart_sel))
+			{
+				$update_field['department'] = implode(",",$depart_sel);
+				//echo"else impload department ". $update_field['department']; exit;
+			}
+			
 			$update_field['last_updated'] = time();
 			$obj_model_log = $app->load_model("staff",$record_id);
 			$obj_model_log->map_fields($update_field);

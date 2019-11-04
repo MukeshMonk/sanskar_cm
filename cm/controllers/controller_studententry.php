@@ -30,7 +30,7 @@
 			$this->app->setAddCSS("css/bootstrap-fileupload.css");
 			$this->app->setAddCSS("css/lib/datatable/bootstrap.datatable.css");
 			
-			
+			$this->app->setAddCSS("css/lib/sumoselect/sumoselect.min.css");
 			// for chart
 			$this->app->setAddCSS("css/lib/charts-c3js/c3.min.css");
 			
@@ -41,6 +41,7 @@
 			$this->app->setAddJS("js/lib/jquery/jquery.min.js");
 			$this->app->setAddJS("js/lib/tether/tether.min.js");
 			$this->app->setAddJS("js/lib/bootstrap/bootstrap.min.js");
+			$this->app->setAddJS("js/lib/sumoselect/jquery.sumoselect.js");
 			$this->app->setAddJS("js/plugins.js");
 			$this->app->setAddJS("js/lib/match-height/jquery.matchHeight.min.js");
 			$this->app->setAddJS("js/lib/select2/select2.full.min.js");
@@ -68,6 +69,7 @@
 			$this->app->setAddJS("js/dizzijs/pagination.js");
 			$this->app->setAddJS("js/dizzijs/studententry.js");
 			$this->app->setAddJS("js/dizzijs/monthly_average_report.js");
+			$this->app->setAddJS("js/dizzijs/entermarkattendance.js");
 			
 			
 					
@@ -1808,8 +1810,11 @@
 		  
 		  elseif($action=="markattandences")
 		  {
-			  
-			    $inscript.="
+			$action=$this->app->getGetVar("action");
+			$subaction=$this->app->getGetVar("subaction");
+			$record_id=$this->app->getGetVar("record_id");
+			  if($record_id=="") {
+				$inscript.="
 				$(document).ready(function() {
 					cf_datapager(1,'markattandences');
 					$('#filter_search').click(function(){
@@ -1826,13 +1831,8 @@
 					cf_datapager(1,'markattandences');
 					});
 				});";
-			  
-			  
-				$action=$this->app->getGetVar("action");
-	            $subaction=$this->app->getGetVar("subaction");
-				$record_id=$this->app->getGetVar("record_id");
-				
-				
+			  }
+
 				$class_tbl="cm_classes";
 				$class_condition="status!=2";
 				$class_text="Select Class";
@@ -1858,7 +1858,9 @@
 				$field_one="id";
 				$field_two="section_name";
 				$sectionorder_condition="section_name ASC";
-	            $section_dd=$this->app->cmx->create_dd($section_tbl,$section_condition,$field_one,$field_two,$section_text,$sectionorder_condition);	
+				$gruopby_condition = "section_name";
+				$section_dd=$this->app->cmx->create_dd($section_tbl,$section_condition,$field_one,$field_two,$section_text,$sectionorder_condition,$gruopby_condition);	
+				//print_r($section_dd); exit;
 				$this->app->assign("section_dd",$section_dd);
 				
 				$course_tbl="cm_course";
@@ -1936,14 +1938,38 @@
 					$obj_model_admin = $this->app->load_model("cm_markattandence");
 					$rsres = $obj_model_admin->execute("SELECT",false,"","id=".$id_dec);
 					$this->app->assign("atten",$rsres);
+					$this->app->assign("add_date",$rsres[0]["add_date"]);
+
+					
 					$this->app->assign("markattandence_id",$id_dec);
 					
 					
 					$obj_model_admin = $this->app->load_model("student");
 					
 					//$studentsres = $obj_model_admin->execute("SELECT",false,"","course_id=".$rsres[0]['course']." AND student.sem = ".$rsres[0]['sem']);
-					$studentsres = $obj_model_admin->execute("SELECT",false,"","cm_class_id=".$rsres[0]['class_id']);
+					$studentsres = $obj_model_admin->execute("SELECT",false,"","cm_class_id=".$rsres[0]['class_id'],"id_no asc");
+					 //echo $obj_model_admin->sql; exit;
 					$this->app->assign("students",$studentsres);
+					$this->app->assign("class_id",$rsres[0]['class_id']);
+
+
+					$inscript.="
+					$(document).ready(function() {
+						cf_datapager(1,'entermarkattendance');
+						$('#filter_search').click(function(){
+						var str=$('#serach_string').val();
+						var sb=$('#search_by').val();
+						if(str=='')
+						{
+							$('#serach_string').parent().addClass('.has-error');
+						}
+						else
+						{
+							$('#serach_string').parent().removeClass('.has-error');
+						}
+						cf_datapager(1,'entermarkattendance');
+						});									
+					});";	
 				
 				
 				}

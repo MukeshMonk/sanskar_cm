@@ -34,7 +34,7 @@
 
 	{
 
-		$ord_cond='';
+		$ord_cond='  order by staff.id DESC ';
 
 	}
 
@@ -62,9 +62,12 @@
 
 	
 
-	$sql="SELECT staff.*,cm_course.course_name from staff LEFT JOIN cm_course ON staff.department=cm_course.id where staff.designation in (select id from cm_designations  where staff_type='Faculty') and staff.id!=0".$cond.$ord_cond;
-
+	//'$sql="SELECT staff.*,cm_course.course_name from staff LEFT JOIN cm_course ON  cm_course.id IN(staff.department) where staff.designation in (select id from cm_designations  where staff_type='Faculty') and staff.id!=0".$cond.$ord_cond;
 	
+
+	$sql="SELECT staff.*  from staff where staff.designation in (select id from cm_designations  where staff_type='Faculty') and staff.id!=0" .$cond.$ord_cond;
+	
+	// echo $sql;exit;
 
 	/*$sql="SELECT `student`.*,cm_religions.name as religion_name,cm_semesters.name as sem_name,cm_course.course_name FROM `student` 
 
@@ -119,10 +122,9 @@
 	
 
 	while($row = mysql_fetch_array( $rs ))
-
 	{
 
-	
+		//echo"<pre>"; print_r($row);
 
 		$sr=$i;
 
@@ -130,7 +132,12 @@
 
 		$id_enc=$app->cmx->encrypt($row['id'],ency_key);
 
-		
+	
+		if($row['department']!=""){
+			$obj_cs = $app->load_model("cm_course");
+			$rs_cs=$obj_cs->execute("SELECT",false,"SELECT GROUP_CONCAT(course_name) as cs_names from cm_course where id IN(".$row['department'].")");
+		}
+	
 
 		$name=$row['first_name']." ".$row['middle_name']." ".$row['last_name'];
 		$subject=$row['subject'];
@@ -234,7 +241,7 @@ $html.=" <td><label class=\"custom-checkbox-item\">";
 		$html.="<td>{$img}</td>";
 		
         $html.="<td>{$name}</td>";
-		$html.="<td>{$course_name}</td>";
+		$html.="<td>{$rs_cs[0]['cs_names']}</td>";
 
         $html.="<td>{$sub_text}</td>";
 

@@ -15,7 +15,6 @@
 				$obj_model_admin3 = $app->load_model("student");
 				$studentsres3 = $obj_model_admin3->execute("SELECT",false,"","cm_class_id=".$rsres[0]['cource_id']." and status='Active'","id_no ASC");
 
-		
 				$obj_model_gr = $app->load_model("cm_exam_subjects");
 				$rs_gr = $obj_model_gr->execute("SELECT",false,"SELECT cm_exam_subjects.*,cm_subjects.subject_code,cm_classes.abbreviation,cm_academicyears.short_name,exam_schedule.cource_id,exam_schedule.acd_year_id,exam_schedule.term_id,exam_schedule.act_name FROM cm_exam_subjects LEFT JOIN exam_schedule ON exam_schedule.id=cm_exam_subjects.exam_id LEFT JOIN cm_academicyears ON cm_academicyears.id = '".$rsres[0]['acd_year_id']."' LEFT JOIN cm_classes ON cm_classes.id='".$rsres2[0]['class_id']."' LEFT JOIN cm_subjects ON cm_subjects.id = '".$rsres[0]['sub_id']."' WHERE cm_exam_subjects.id!=0 AND cm_exam_subjects.sub_id='".$rsres[0]['sub_id']."' and exam_schedule.acd_year_id='".$rsres[0]['acd_year_id']."' and exam_schedule.cource_id='".$rsres[0]['cource_id']."'");
 	

@@ -9,6 +9,11 @@
 	$record_id=$app->getPostVar("record_id");
 		//$item_id=$app->getPostVar("update_id");
 		$item_id=$app->getPostVar("record_id");
+		//echo '<pre>'.print_r($app->getPostVars(),true).'</pre>';exit;
+
+		$depart_sel=$app->getPostVar("depart_sel");
+
+	
 		  $update_field=array();
 		if($item_id=="")
 		{
@@ -19,10 +24,12 @@
 			if(!empty($subject))
 			{
 				$update_field['subject'] = implode(",",$subject);
+				//echo"impload". $update_field['subject']; exit;
 			}
 			else
 			{
 				$update_field['subject'] = "";
+				//echo $update_field['subject']; exit;
 			}
 			if(!empty($cls_inchrg))
 			{
@@ -32,7 +39,19 @@
 			{
 				$update_field['class_incharge'] = "";
 			}
+			if(!empty($depart_sel))
+			{
+				$update_field['department'] = implode(",",$depart_sel);
+				//echo"impload department ". $update_field['department']; exit;
+			}
+			else
+			{
+				$update_field['department'] = "";
+				//echo $update_field['department']; exit;
+			}
+			
 			$obj_model_log = $app->load_model("staff");
+			//echo"<pre>";print_r($obj_model_log->sql); exit;
 			$obj_model_log->map_fields($update_field);
 			$ins=$obj_model_log->execute("INSERT");
 			$msg="Staff Added Successfully.";
@@ -55,6 +74,14 @@
 			else
 			{
 				$update_field['class_incharge'] = "";
+			}
+			if(!empty($depart_sel))
+			{
+				$update_field['department'] = implode(",",$depart_sel);
+			}
+			else
+			{
+				$update_field['department'] = "";
 			}
 			$update_field['last_updated'] = time();
 			$obj_model_log = $app->load_model("staff",$record_id);

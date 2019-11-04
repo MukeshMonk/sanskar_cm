@@ -1,3 +1,18 @@
+<style>
+.SumoSelect {
+    width: 270px !important;
+}
+.SumoSelect>.CaptionCont {
+    border: 1px solid #d8e2e7;
+    -webkit-border-radius: .25rem;
+    border-radius: .25rem;
+    font-size: 1rem;
+    color: #343434;
+}
+.SumoSelect>.CaptionCont>label {
+    background: #d8e2e7;
+}
+</style>
 <div class="page-content">
   <div class="container-fluid mt50 dizzilist-block">
     <div class="col-xxl-12 col-md-12">
@@ -92,10 +107,10 @@
         <div id="markattandences_response"></div>
         <div class="row">
           <div class="col-md-6">
-	        <div class="form-group">
-	          <label  class="control-label">Academic Year<span class="mandatory">*</span></label>
-	           <? $this->app->htmlBuilder->buildTag("select", array("class"=>"select2", "values"=>$this->app->academic_year_dd), "academic_year");?>
-			</div>
+            <div class="form-group">
+              <label  class="control-label">Academic Year<span class="mandatory">*</span></label>
+              <? $this->app->htmlBuilder->buildTag("select", array("class"=>"select2", "values"=>$this->app->academic_year_dd), "academic_year");?>
+            </div>
          </div>
          <div class="col-md-6">
 	        <div class="form-group">
@@ -141,6 +156,7 @@
           <div class="col-md-6">
             <div class="form-group">
               <label for="field-1" class="control-label">Class<span class="mandatory">*</span></label>
+              <? //$this->app->htmlBuilder->buildTag("select", array("class"=>"sumo-select" ,"multiple"=>"multiple","name"=>"class1[]","values"=>$this->app->classes_dd,"id"=>"class1"));?>
               <? $this->app->htmlBuilder->buildTag("select", array("class"=>"select2", "values"=>$this->app->classes_dd), "class1");?>
             </div>
           </div>	

@@ -180,7 +180,7 @@ $(document).ready(function(){
     ========================================================================== */
 
 	$(window).resize(function(){
-		$('body').click('click');
+		$('body').trigger('click');
 	});
 
 	// Collapse box
@@ -218,7 +218,7 @@ $(document).ready(function(){
 	Select
 	========================================================================== */
 
-	if ($('.bootstrap-select').size()) {
+	if ($('.bootstrap-select').length>0) {
 		// Bootstrap-select
 		$('.bootstrap-select').selectpicker({
 			style: '',
@@ -227,7 +227,7 @@ $(document).ready(function(){
 		});
 	}
 
-	if ($('.select2').size()) {
+	if ($('.select2').length>0) {
 		// Select2
 		//$.fn.select2.defaults.set("minimumResultsForSearch", "Infinity");
 
@@ -299,7 +299,7 @@ $(document).ready(function(){
 		var sectionHeader = $('.section-header');
 		var sectionHeaderHeight = 0;
 
-		if (sectionHeader.size()) {
+		if (sectionHeader.length>0) {
 			sectionHeaderHeight = parseInt(sectionHeader.height()) + parseInt(sectionHeader.css('padding-bottom'));
 		}
 

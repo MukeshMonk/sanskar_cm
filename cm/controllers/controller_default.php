@@ -94,7 +94,7 @@
 
 		$this->app->setInlineScripts($inscript);
 
-			
+	
 
 		
 

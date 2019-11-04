@@ -168,6 +168,7 @@
 					cf_datapager(1,'exam_sch');
 					});
 				});";
+				
 			  }elseif($action=="enter_marks"){
 				  $record_id=$this->app->getGetVar("record_id");
 				 
@@ -176,7 +177,7 @@
 				  
 			  	if($id_dec > 0 && $record_id!="")
 				{
-					
+			
 					$this->app->assign("exam_sch_id",$record_id);	
 					$obj_model_admin = $this->app->load_model("cm_exam_subjects");
 					$rsres = $obj_model_admin->execute("SELECT",false,"SELECT cm_exam_subjects.*,exam_schedule.cource_id,exam_schedule.max_mark,cm_subjects.subject_name FROM cm_exam_subjects LEFT JOIN exam_schedule ON exam_schedule.id=cm_exam_subjects.exam_id LEFT JOIN cm_subjects ON cm_subjects.id = cm_exam_subjects.sub_id WHERE cm_exam_subjects.id!=0    AND cm_exam_subjects.id=".$id_dec);

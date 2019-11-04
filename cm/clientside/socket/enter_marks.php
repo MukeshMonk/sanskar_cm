@@ -81,7 +81,7 @@
 		$dwnld_btn='<a href="javascript:void(0);" class="call_export" data-id="'.$id_enc.'"  ><i class="fa fa-download"></i> View/Download</a>';
 		
 		$html.="<tr>";
-$html.=" <td><label class=\"custom-checkbox-item\">";
+		$html.=" <td><label class=\"custom-checkbox-item\">";
         $html.=" <input class=\"custom-checkbox bulk-checkbox delAll\" name=\"del[]\" type=\"checkbox\" data-stat=\"".$stat."\" name=\"inv_select\" value=\"".$id_enc."\">";
         $html.="<span class=\"custom-checkbox-mark\"></span></label></td>";
 		$html.="<td>{$sr}</td>";

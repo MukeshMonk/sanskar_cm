@@ -9,6 +9,7 @@
 		$obj_client = $app->load_model("staff",$acd_id);
 		$rs_eve = $obj_client->execute("SELECT");
 		
+		//echo"<pre>"; print_r($rs_eve); exit;
 		if($rs_eve[0]["dob"]>0)
 		{
 			$date_of_birth=date('d-m-Y',strtotime($rs_eve[0]["dob"]));
@@ -81,7 +82,7 @@
 		"is_intercommunication"=>$rs_eve[0]["is_intercommunication"]
 		);
 	
-	
+	//echo"<pre>"; print_r($data_array); exit;
 	echo $obj_JSON->encode(array("success"=>"0","result"=>$data_array));	
 	}
 	

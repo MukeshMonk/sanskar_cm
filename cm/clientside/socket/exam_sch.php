@@ -16,7 +16,7 @@
 	}
 	else
 	{
-		$ord_cond='';
+		$ord_cond='  order by exam_schedule.id DESC ';
 	}
 	
 	if($sb!="" && $sbv!="")

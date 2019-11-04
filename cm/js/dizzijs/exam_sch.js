@@ -127,8 +127,7 @@ var handleSubjectForm = function() {
 return {
 		init: function() {
 			handleexamForm();
-			handleSubjectForm();
-							
+			handleSubjectForm();					
 		}
 	}
 }();
@@ -171,12 +170,59 @@ $(document).on('change', '.change_cource', function() {
     
 });
 
-	
+/*** START THIS CODE FOR CLASS RELATED SUBJECT DISPLAY  */
+$(document).on('change', '.change_class', function() {
+   var sub_temp = $(this).attr("data-term");
+   var optionSel = $("#branch").val();
+   var record_id = $("#record_id").val();  
+   $("#subject").hide();
+   if(optionSel !=""){
+	$("#subject").show();
+   }
+var data_post={'connector':'data_subject_exam_schedule','act_id':optionSel,'sub_temp':sub_temp,'record_id':record_id};
+  $.ajax(
+                {
+                    type: "POST",
+                    dataType: 'json',
+                    cache: false,
+                    url: "clientside/socket/call.php",
+                    data: data_post,
+                    success: function(data)
+					{
+						if(data.success!='1')
+						{
+							$('#subject').html(data.term_text);
+							$('.indatepicker').daterangepicker({
+								singleDatePicker: true,
+								showDropdowns: true,
+								  autoUpdateInput: true,
+								  minDate: new Date(1900, 0, 1),
+								  maxDate: '+250Y',
+								 locale: {
+										format: 'DD-MM-YYYY',
+									 separator:'-'
+										}
+							});
+						}
+						else
+						{
+						
+						}
+					 	
+						
+					 }
+			     });
+    
+});
+/*** END THIS CODE FOR CLASS RELATED SUBJECT DISPLAY  */
+
+
 $(document).ready(function() {	
 examinationSubmissions.init();
 });
 $('#con-close-modal').on('hidden.bs.modal', function () {
-    $(this).find('form').trigger('reset');
+	$(this).find('form').trigger('reset');
+	$("#subject").html('');
 })
 function del_terms(act_id,class_id)
 {
@@ -237,28 +283,39 @@ function loadexam_subject(terms_id,exam_id)
 }
 function del_exam_sub(terms_id,exam_id)
 {
-	$.ajax(
-    {
-        type: "POST",
-        cache: false,
-        dataType: 'json',
-        url: "clientside/socket/call.php",
-        data: "connector=loadexam_subject&clsid="+terms_id+"&examid="+exam_id,
-        success: function(data)
-		 {
-				//$("#exam-subject-modal .modal-body").html(data.HTML);
-				$("#exam-subject-modal .sub-list-div").html(data.HTML);
-				$("#exam-subject-modal .sub-div").html(data.subhtml);
-				$("#exam-subject-modal #examid").val(exam_id);
-				$("#exam-subject-modal .modal-title").html(data.title_modal);
-				$("#exam-subject-modal").modal("show");
-				examinationSubmissions.init();
-		 }
-	})
+
+	jConfirm('Are you sure you want to delete record?', 'Confirmation Dialog', function(r) {
+		if (r == true)
+		{
+			$.ajax(
+				{
+					type: "POST",
+					cache: false,
+					dataType: 'json',
+					url: "clientside/socket/call.php",
+					data: "connector=loadexam_subject&clsid="+terms_id+"&examid="+exam_id,
+					success: function(data)
+					 {
+							//$("#exam-subject-modal .modal-body").html(data.HTML);
+							$("#exam-subject-modal .sub-list-div").html(data.HTML);
+							$("#exam-subject-modal .sub-div").html(data.subhtml);
+							$("#exam-subject-modal #examid").val(exam_id);
+							$("#exam-subject-modal .modal-title").html(data.title_modal);
+							$("#exam-subject-modal").modal("show");
+							examinationSubmissions.init();
+					 }
+				})
+		
+		} else
+		{
+		  return false;
+		}
+	  });
+	
 }
 function edit_exam_sch(act_id)
 {
-	
+	$("#frm_exam_sch #record_id").val(act_id);
 	$.ajax(
                 {
                     type: "POST",
@@ -304,6 +361,9 @@ function edit_exam_sch(act_id)
 						});
 						
 						$("#frm_exam_sch #record_id").val(act_id);
+						$("#exam-subject-modal").modal("hide");
+
+						
 						$("#con-close-modal").modal("show");
 					 }
 			     });
@@ -326,3 +386,14 @@ $('#con-close-modal').on('shown.bs.modal', function (e) {
 		$("#frm_exam_sch #div1 option[value='" + e + "']").prop("selected", true);
 	});
 })*/
+$(document).on("click",".chkbx_sub",function(){
+	var a="";
+	if($(this).is(":checked")){
+		a =$(this).attr("data-id");
+		$("#sub_li_"+a).find("input[type='text']").removeAttr("disabled");
+	} else{
+		a =$(this).attr("data-id");
+		$("#sub_li_"+a).find("input[type='text']").attr("disabled","disabled");	
+	}
+
+});
